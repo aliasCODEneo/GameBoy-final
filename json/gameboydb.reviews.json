@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "65f2138fd7020718872dd7cd"
+  },
+  "name": "Alisha Chua",
+  "review": "Best game ever!",
+  "userPic": "https://i.pinimg.com/736x/0a/e2/a5/0ae2a51b174fd8b114456fee0e11dff7.jpg"
+},
+{
+  "_id": {
+    "$oid": "65f21800abd47bae4181fd69"
+  },
+  "name": "Tristan Mercado",
+  "review": "This game is amazing! The graphics are stunning, the gameplay is immersive. I highly recommend it to all gamers out there!",
+  "userPic": "https://i.pinimg.com/564x/6d/a0/f6/6da0f69cdd29bf43f7c2c4d7b2604dd9.jpg"
+},
+{
+  "_id": {
+    "$oid": "65f2185eabd47bae4181fd6a"
+  },
+  "name": "Ariana Grande",
+  "review": "My favorite game to play with friends and family. Always creating memories with this game!",
+  "userPic": "https://i.pinimg.com/736x/95/a1/ad/95a1ad912b5db506b1c1e4a9b0907852.jpg"
+},
+{
+  "_id": {
+    "$oid": "65f218ccabd47bae4181fd6b"
+  },
+  "name": "Harry Roque",
+  "review": "This game is not very user friendly. Took me 3 days to understand the controls. Also encountered lots of bugs!",
+  "userPic": "https://i.pinimg.com/736x/0e/37/f6/0e37f644cb6c80a68796854d05842e97.jpg"
+},
+{
+  "_id": {
+    "$oid": "65f21917abd47bae4181fd6c"
+  },
+  "name": "Sonny Angel",
+  "review": "AWESOME GAME, I HAVE A TOTAL OF 400 HOURS ON THIS GAME IN THE LAST MONTH!",
+  "userPic": "https://i.pinimg.com/564x/f9/e0/0f/f9e00f9615e0d86a5a7f02caebd00486.jpg"
+}]

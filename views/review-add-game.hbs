@@ -1,0 +1,56 @@
+<div class="pt1 everything">
+    {{> header-login}}
+    <div class="neo-body">
+        <form action="/review-add-game" method="POST" enctype="multipart/form-data">
+            <div class="review-add-game-body-container-RAG">
+                <div class="left-div-RAG">
+                    <div class="h1div-RAG">
+                        <h1 id="h1-RAG">Add a Game:</h1>
+                        <h4>Game Details</h4>
+                    </div>
+                    <div class="gameImage-RAG">
+                        <img src="https://d27jswm5an3efw.cloudfront.net/app/uploads/2018/10/jpeg-image-file-17-768x768.png" id="preview-game-RAG">
+                    </div>
+                    <div class="gameTitle-RAG">
+                        <h2 id="h2-RAG">SELECT IMAGE</h2>
+                    </div>
+                    <div class="gameTitle-desc-RAG">
+                        <p>(File Size: Maximum 1 MB)</p>
+                        <p>(File Extension: JPEG, .PNG)</p>
+                    </div>
+                    <input id="file-button-RAG" type="file" accept="image/*" name="gameImage" required>
+                </div>
+                <div class="right-div-RAG">
+                    <div class="h2div1-RAG">
+                        <h2>Name</h2>
+                    </div>
+                    <textarea class="h2div1-textarea-RAG" name="name" placeholder="Enter game name" required></textarea>
+                    <div class="h2div2-RAG">
+                        <h2>Category</h2>
+                    </div>
+                    <div class="category-buttons-RAG">
+                        <button class="separate-category-buttons-RAG" type="button">Horror</button>
+                        <button class="separate-category-buttons-RAG" type="button">Multiplayer</button>
+                        <button class="separate-category-buttons-RAG" type="button">Love</button>
+                        <button class="separate-category-buttons-RAG" type="button">Co-op</button>
+                    </div>
+                    <div class="h2div3-RAG">
+                        <h2>Game Developer</h2>
+                    </div>
+                    <textarea class="h2div3-textarea-RAG" name="developer" placeholder="Enter game developer" required></textarea>
+                    <div class="h2div4-RAG">
+                        <h2>Description</h2>
+                    </div>
+                    <textarea class="h2div4-textarea-RAG" name="description" placeholder="Enter game description"></textarea>
+                    <div class="h3div1-RAG">
+                        <h3>Are you an owner, employee, or official representative of this game?</h3>
+                        <button class="owner-button-RAG" type="button">Yes</button>
+                        <button class="owner-button-RAG" type="button">No</button>
+                    </div>
+                    <button class="submit-button-submit" id="submit-button-RAG" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

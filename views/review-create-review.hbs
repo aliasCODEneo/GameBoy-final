@@ -1,0 +1,57 @@
+{{> header-login}}
+<div class="pt1 everything">
+    <div class="neo-body">
+        <form action="/review-create-review" method="POST">
+            <div class="review-create-review-body-container-RCR">
+                <div class="left-div-RCR">
+                    <div class="h1div-RCR">
+                        <h1>Tell us about</h1>
+                        <h1>the Game..</h1>
+                    </div>
+                    <div class="gameImage-RCR">
+                        <img src="data:image/jpeg;base64,{{game.gameImageBase64}}"/>
+                    </div>
+                    <div class="gameTitle-RCR">
+                        <h2>{{game.name}}</h2>
+                        <input type="hidden" name="gamename" value="{{game.name}}" required>
+                    </div>
+                </div>
+                <div class="right-div-RCR">
+                    <div class="h2div1-RCR">
+                        <h2>How would you rate the game?</h2>
+                    </div>
+                    <div class="starsContainer-RCR">
+                        <div class="rating-wrap-RCR">
+                            <fieldset class="rating-RCR">
+                            <input type="radio" id="star5" name="rating-RCR" value="5"/><label for="star5" class="full"></label>
+                            <input type="radio" id="star4.5" name="rating-RCR" value="4.5"/><label for="star4.5" class="half"></label>
+                            <input type="radio" id="star4" name="rating-RCR" value="4"/><label for="star4" class="full"></label>
+                            <input type="radio" id="star3.5" name="rating-RCR" value="3.5"/><label for="star3.5" class="half"></label>
+                            <input type="radio" id="star3" name="rating-RCR" value="3"/><label for="star3" class="full"></label>
+                            <input type="radio" id="star2.5" name="rating-RCR" value="2.5"/><label for="star2.5" class="half"></label>
+                            <input type="radio" id="star2" name="rating-RCR" value="2"/><label for="star2" class="full"></label>
+                            <input type="radio" id="star1.5" name="rating-RCR" value="1.5"/><label for="star1.5" class="half"></label>
+                            <input type="radio" id="star1" name="rating-RCR" value="1"/><label for="star1" class="full"></label>
+                            <input type="radio" id="star0.5" name="rating-RCR" value="0.5"/><label for="star0.5" class="half"></label>
+                        </fieldset>
+                        </div> 
+                    </div>
+                    <h5 id="rating-value" name="rating"></h5>  
+                    <input type="hidden" id="rating-value-input" name="rating" value="" required>                    <div class="h2div2-RCR">
+                        <h2>Write Your Review</h2>
+                    </div>
+                    <textarea id="review-content-RCR" rows="10" name="review" placeholder="Write your review" required></textarea>
+                    <div class="h2div3-RCR">
+                        <h2>Add Attachments</h2>
+                        <div class="filedesc-RCR">
+                            <p>(File Size: Maximum 1 MB)</p>
+                            <p>(File Extension: JPEG, .PNG)</p>
+                        </div>
+                    </div>
+                    <input id="file-button-RCR" type="file" accept="image/*">
+                    <a href="/review-added"><button id="submit-button-RCR" type="submit">Submit</button></a>
+                </div>
+            </div>
+        </form> 
+    </div>
+</div>

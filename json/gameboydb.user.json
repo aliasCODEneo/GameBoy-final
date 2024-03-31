@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "65f00d51f69b25a10fc91b42"
+  },
+  "username": "bolbie",
+  "name": "Alisha Go",
+  "birthday": "2003-03-24",
+  "email": "alisha_chua@dlsu.edu.ph",
+  "password": "123",
+  "profilePicture": "default_profile_picture.jpg",
+  "signupDate": "12-03-2024"
+},
+{
+  "_id": {
+    "$oid": "65f01084f69b25a10fc91b43"
+  },
+  "username": "shaimmase",
+  "name": "Shaimma Ong",
+  "birthday": "2003-09-15",
+  "email": "shaimma@dlsu.edu.ph",
+  "password": "sla",
+  "profilePicture": "https://i.pinimg.com/564x/6c/84/84/6c84841a9eb5b9c01233ff9224a747c2.jpg",
+  "signupDate": "12-03-2024"
+},
+{
+  "_id": {
+    "$oid": "65f00d51f69b25a10fc91b44"
+  },
+  "username": "emilys",
+  "name": "Emily Smith",
+  "birthday": "1990-02-28",
+  "email": "emily.smith@example.com",
+  "password": "emily123",
+  "profilePicture": "https://i.pinimg.com/736x/96/09/c8/9609c81b2bb486673353a42354f933c9.jpg",
+  "signupDate": "2024-01-10"
+},
+{
+  "_id": {
+    "$oid": "65f00d51f69b25a10fc91b43"
+  },
+  "username": "johndoe",
+  "name": "John Doe",
+  "birthday": "1980-05-15",
+  "email": "john.doe@example.com",
+  "password": "john123",
+  "profilePicture": "https://i.pinimg.com/736x/0a/e2/a5/0ae2a51b174fd8b114456fee0e11dff7.jpg",
+  "signupDate": "2023-12-05"
+},
+{
+  "_id": {
+    "$oid": "65f00d51f69b25a10fc91b41"
+  },
+  "username": "tristanm",
+  "name": "Tristan Mercado",
+  "birthday": "1995-08-10",
+  "email": "tristan.mercado@example.com",
+  "password": "tristan123",
+  "profilePicture": "https://i.pinimg.com/564x/c0/5a/d8/c05ad86ab58c361871da3cd4979974a3.jpg",
+  "signupDate": "2023-11-20"
+}]

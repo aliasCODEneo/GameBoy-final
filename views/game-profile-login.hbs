@@ -1,0 +1,53 @@
+<div class="pt1 everything">
+    {{> header-login}}
+    <div class ="shaimma_body">
+        <div class="game-profile-body">
+    <h1>Game Review:</h1>
+        <div class="game-profile-container">
+            <div class="game-profile-left">
+                <img src="data:image/jpeg;base64,{{game.gameImageBase64}}">
+            <h3>Overall Rating: <div class="stars" data-rating="3"></div> </h3>
+                <a href="/review-create-review"><button class="button">CREATE REVIEW</button></a>
+            </div>
+
+            <div class="game-profile-right">
+                <h1>{{game.name}}</h1>
+                <h3>Genre: Game</h3>
+                <a href="/gamedeveloper-with-login/{{game.developer}}">BY: {{game.developer}}</a>
+                <div class="game-profile-description">{{game.description}}</div>
+                
+                <div class="game-profile-online-reviews">
+                    <span>Online Reviews</span>
+                    <a href="#" class="game-profile-thumbs-up-icon" onclick="incrementCounter('thumbsUp')"> <i class="fa fa-thumbs-up"></i> <span id="thumbsUpCount">0</span></a>
+                    <a href="#" class="game-profile-heart-icon" onclick="incrementCounter('heart')"> <i class="fa fa-heart"></i> <span id="heartCount">0</span></a>
+                    {{#each reviews}}
+                    <div class="game-profile-comment-box">
+                        <div class="game-profile-commenter-profile">
+                            <img src="{{userPic}}" alt="Profile Picture">
+                             <span class="game-profile-commenter-name">{{username}}</span>
+                        </div>
+                        
+                        <div class="stars" data-rating="3"></div>
+
+                        <div class="game-profile-comment-text" contentEditable="true" >{{review}}
+                        </div>
+                        <button class="game-profile-like-button" onclick="likeComment(this)">
+                            <i class="fa fa-thumbs-up"></i>
+                            <span class="icon-counter">0</span>
+                        </button>
+                        <button class="game-profile-like-button" onclick="heartComment(this)">
+                            <i class="fa fa-heart"></i>
+                            <span class="game-profile-icon-counter">0</span>
+                        </button>
+
+                        <button class="edit-button" onclick="editComment(this)">Edit</button>
+                        
+                        <button class="delete-comment-button" onclick="deleteComment(this)">Delete Comment</button>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
