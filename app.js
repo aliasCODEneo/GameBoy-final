@@ -33,6 +33,9 @@ server.engine('hbs', handlebars.engine({
     extname: 'hbs'
 }));
 
+
+
+
 const { MongoClient } = require('mongodb');
 const databaseURL = "mongodb://127.0.0.1:27017/";
 const databaseName = "gameboydb";
@@ -117,6 +120,8 @@ server.get('/homepage-with-login', function(req, resp){
         title: 'GameBoy!'
     });
 });
+
+
 
 server.get('/gamedeveloper-without-login/:name', function(req, resp){
     const gameDeveloperName = req.params.name;
@@ -334,14 +339,23 @@ server.get('/forgotpassword', function(req, resp){
 
 let currentGame;
 
+
+
 server.get('/game-profile-login/:name', function(req, resp) {
     const gameName = req.params.name;
     const dbo = mongoClient.db(databaseName);
     const gameCollection = dbo.collection(collectionName1);
     const reviewsCollection = dbo.collection(collectionName2); 
-
+    const user = req.session.user;
+    resp.locals.user = user; 
     let isBase64 = false;
 
+
+    console.log("Checking if user is logged in. Session user:", req.session.user);
+    if (!req.session.user) {
+        return resp.redirect('/login');
+    }
+    
     gameCollection.findOne({ name: gameName }).then(function(game) {
         if (!game) {
             resp.status(404).send('Game not found');
@@ -360,13 +374,21 @@ server.get('/game-profile-login/:name', function(req, resp) {
                 if (isBase64){
                     review.userPic = `data:image/jpeg;base64,${review.userPic}`;
                 }
+                review.isAuthor = user && review.username === user.username;
             });
+            
+            const sameDeveloper = user && game.developer === user.name;
+            
 
             resp.render('game-profile-login', {
                 layout: 'index',
                 title: 'GameBoy!',
                 game: game,
                 reviews: reviews,
+                user:user,
+                isBase64:isBase64,
+                sameDeveloper:sameDeveloper
+
             });
         }).catch(function(error) {
             console.error('Error fetching reviews:', error);
@@ -377,6 +399,8 @@ server.get('/game-profile-login/:name', function(req, resp) {
         resp.status(500).send('Error fetching game data');
     });
 });
+
+
 
 server.get('/game-profile/:name', function(req, resp) {
     const gameName = req.params.name;
