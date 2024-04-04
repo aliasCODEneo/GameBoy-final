@@ -26,8 +26,9 @@
                             <img src="{{userPic}}" alt="Profile Picture">
                              <span class="game-profile-commenter-name">{{username}}</span>
                         </div>
-                        
-                        <div class="stars" data-rating="3"></div>
+     
+     
+                  <div class="stars" data-rating="3"></div>
 
                         <div class="game-profile-comment-text" contentEditable="true" >{{review}}
                         </div>
@@ -39,11 +40,21 @@
                             <i class="fa fa-heart"></i>
                             <span class="game-profile-icon-counter">0</span>
                         </button>
+               
+                    {{#if ../sameDeveloper}}
+                             <button class="delete-comment-button" onclick="toggleReplyBox(this)">Reply</button>
 
-                        <button class="edit-button" onclick="editComment(this)">Edit</button>
-                        
+                              <div class="developer-reply-box" style="display: none;">
+                                <textarea class="reply-textarea"></textarea>
+                                <button class="submit-reply-button" onclick="submitReply(this)">Submit</button>
+                                 </div>
+                    {{/if}}
+
+                    {{#if isAuthor}}
+                        <button class="delete-comment-button" onclick="editComment(this)">Edit</button>
                         <button class="delete-comment-button" onclick="deleteComment(this)">Delete Comment</button>
-                    </div>
+                    {{/if}}
+  </div>
                     {{/each}}
                 </div>
             </div>
