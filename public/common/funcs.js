@@ -143,6 +143,40 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+    function toggleReplyBox(button) {
+        const commentBox = button.closest('.game-profile-comment-box');
+        const replyBox = commentBox.querySelector('.developer-reply-box');
+        
+        if (replyBox) {
+            replyBox.style.display = replyBox.style.display === 'none' ? 'block' : 'none';
+        } else {
+            const newReplyBox = document.createElement('div');
+            newReplyBox.classList.add('developer-reply-box');
+            newReplyBox.innerHTML = `
+                <textarea class="reply-textarea" placeholder="Write your reply here"></textarea>
+                <button class="submit-reply-button" onclick="submitReply(this)">Submit</button>
+            `;
+            commentBox.appendChild(newReplyBox);
+        }
+    }
+    
+    function submitReply(button) {
+        const replyTextarea = button.previousElementSibling;
+        const replyContent = replyTextarea.value.trim();
+        if (replyContent !== '') {
+            // Assuming the reply was successfully submitted, update the UI as needed
+            const commentBox = button.closest('.game-profile-comment-box');
+            const replyMessage = document.createElement('div');
+            replyMessage.textContent = `From the developer: ${replyContent}`;
+            replyMessage.classList.add('game-profile-comment-text'); // Add CSS class
+            commentBox.appendChild(replyMessage);
+            
+            // Clear the reply textarea
+            replyTextarea.value = '';
+        }
+        // Prevent the default form submission behavior
+        event.preventDefault();
+    }
 
 document.addEventListener('DOMContentLoaded', function() {
     function toggleDropdowns(dropdownId2) {
