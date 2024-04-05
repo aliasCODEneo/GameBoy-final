@@ -1,0 +1,21 @@
+<div class="pt1 everything">
+    {{> header-login}}
+    <div class="shaimma_body">
+        <div class="view-container">
+            <h2>ALL GAMES</h2>
+            <div class="games">
+            {{#each games}}
+            <div class="game">
+                <!-- Use the Base64 data as the src for the img tag -->
+                <img src="data:image/jpeg;base64,{{gameImageBase64}}" alt="gameicon">
+                <div class="game-name">{{name}}</div>
+                <div class="developer"><p>{{developer}}</p></div>
+                <div class="stars" data-rating="4"></div>
+                <a href="game-profile-login/{{name}}"><button class="game-view-reviews-btn">View Reviews</button></a>
+            </div>
+            {{/each}}
+           </div>
+        </div>
+    </div>
+</div>
+

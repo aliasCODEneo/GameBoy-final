@@ -1,0 +1,35 @@
+{{> header-without-login}}
+<div class="topgames-body">
+    <div class="topgames-header">
+        <h1>DISCOVER | TOP RATED GAMES</h1> <!-- Title -->
+    </div>
+    <div class="scroll-container">
+        <div class="slide-container">
+            {{#each games}}
+            <div class="slide-content">
+                <div class="card-wrapper">
+                    <div class="card">
+                        <div class="image-content">
+                            <span class="overlay"></span>
+
+                            <div class="card-image">
+                                <img src="data:image/jpeg;base64,{{gameImageBase64}}" alt="" class="card-img">
+                            </div>
+
+                        </div>
+                        <div class="card-content">
+                            <h2 class="shaimma-name">{{name}}</h2>
+                            <p class="description">{{description}}</p>
+                            <a href="game-profile/{{name}}"><button class="shaimma-button">VIEW REVIEWS</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="viewgamestext">
+        <a href="allgames-without-login"><h2>VIEW ALL GAMES</h2></a>
+    </div>
+</div>
+</html>

@@ -1,0 +1,42 @@
+<div class="pt1 everything">
+    {{> header-login}}
+    <div class="neo-body">
+        <div class="edit-user-body-edit-user-profile">
+            <form action="/edit-user-profile" method="POST" enctype="multipart/form-data">
+                <div class="container-edit-user-profile">
+                    <div class="left-div-edit-user-profile">
+                        <div class="profile-img-edit-user-profile">
+                            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" id="profile-pic-edit-user-profile">
+                        </div>
+                        <div class="h2leftdiv1-edit-user-profile">
+                            <h2 id="h2-edit-user-profile">Change Profile Picture</h2>
+                        </div>
+                        <input id="file-button-edit-user-profile" type="file" accept="image/*" name="profilePicture">
+                    </div>
+                    <div class="right-div-edit-user-profile">
+                        <div class="h2rightdiv1-edit-user-profile">
+                            <h2>Name</h2>
+                        </div>
+                        <textarea class="h2rightdiv1-textarea-edit-user-profile" name="name" placeholder="Enter your Name"></textarea>
+                        <div class="h2rightdiv2-edit-user-profile">
+                            <h2>Username</h2>
+                        </div>
+                        <textarea class="h2rightdiv2-textarea-edit-user-profile" name="username" placeholder="Enter your Username"></textarea>
+                        <div class="h2rightdiv3-edit-user-profile">
+                            <h2>Birthday</h2>
+                            <input type="date" placeholder="Birthday" name="birthday">
+                        </div>
+                        <div class="h2rightdiv4-edit-user-profile">
+                            <h2>About You</h2>
+                        </div>
+                        <textarea class="h2rightdiv4-textarea-edit-user-profile" name="about" placeholder="Enter something about Yourself"></textarea>
+                        <div class="category-buttons-edit-user-profile">
+                            <a href="/viewprofile"><button id="cat-btn-edit-user-profile" class="separate-buttons-edit-user-profile" type="submit">Save</button></a>
+                            <a href="/viewprofile"><button id="cat-btn-edit-user-profile-cancel" class="separate-buttons-edit-user-profile" type="button">Cancel</button></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
