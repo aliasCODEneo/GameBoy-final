@@ -7,20 +7,27 @@
 //npm i express express-handlebars body-parser mongodb
 //npm install bcrypt
 
-
 const express = require('express');
 const server = express();
 const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 const multer = require('multer');
 const bcrypt = require('bcrypt');
 
 const bodyParser = require('body-parser');
+const store = new MongoDBStore({
+    uri: mongoURI,
+    databaseName: databaseName,
+    collection: 'gameboydb' 
+});
+
 server.use(express.json()); 
 server.use(express.urlencoded({ extended: true }));
 server.use(session({
     secret: 'gameboy', // Replace 'your_secret_key' with a secret key for session encryption
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: store
 }));
 
 
@@ -32,9 +39,6 @@ server.set('view engine', 'hbs');
 server.engine('hbs', handlebars.engine({
     extname: 'hbs'
 }));
-
-
-
 
 const { MongoClient } = require('mongodb');
 
