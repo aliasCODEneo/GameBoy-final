@@ -94,42 +94,100 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function editComment(button) {
-        var commentBox = button.parentElement;
-        var commentText = commentBox.querySelector('.game-profile-comment-text');
+        let commentBox = button.parentElement;
+        let commentText = commentBox.querySelector('.game-profile-comment-text');
     
         if (commentText.getAttribute('contentEditable') === 'true') {
-        commentText.setAttribute('contentEditable', 'false');
-        button.textContent = 'Edit';
+            // If the comment is being edited, change it back to non-editable
+            commentText.setAttribute('contentEditable', 'false');
+            button.textContent = 'Edit';
+            saveComment(button); // Save the comment when transitioning from edit to non-edit
         } else {
-        commentText.setAttribute('contentEditable', 'true');
-        button.textContent = 'Save'; 
+            // If the comment is not being edited, make it editable
+            commentText.setAttribute('contentEditable', 'true');
+            button.textContent = 'Save';
         }
     }
-
+    
     function saveComment(button) {
-        var commentBox = button.parentElement.parentElement;
-        var commentText = commentBox.querySelector('.game-profile-comment-text');
-    
-        // Disable editing and change the button text back to "Edit"
-        commentText.setAttribute('contentEditable', 'false');
-        button.textContent = 'Edit';
-    
-        // Here you would send the updated comment text to your server
-        // This is just a placeholder and will need to be replaced with your actual save logic
-        alert('Sending updated comment to the server: ' + commentText.textContent);
-    }
+        let commentBox = button.parentElement.parentElement;
+        let commentText = commentBox.querySelector('.game-profile-comment-text');
+        let editedContent = commentText.textContent;
+        
+        // Retrieve the username from the comment box
+        let usernameElement = commentBox.querySelector('.game-profile-commenter-name');
+        let username = usernameElement.textContent.trim(); // Trim any leading or trailing whitespace
 
+        let gameNameElement = document.querySelector('.game-profile-right h1');
+        let gameName = gameNameElement.textContent.trim();
+
+        console.log('Edited Content:', editedContent);
+        console.log('Username:', username);
+        
+    
+        fetch('/update-comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                editedContent: editedContent
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                // If the update is successful, redirect to edit success page
+                alert('Changes saved successfully. Click OK to return to the game profile.');
+                window.location.href = '/game-profile-login/' + encodeURIComponent(gameName);
+            } else {
+                throw new Error('Failed to update comment');
+            }
+        })
+        .catch(error => {
+            console.error('Error updating comment:', error);
+            // Handle the error, show an error message, or redirect to an error page
+            alert('Failed to update comment. Please try again.');
+        });
+    }
+    
     function deleteComment(button) {
         // Get the comment container
         var commentContainer = button.parentElement;
     
-        // Remove the comment container from the DOM
-        commentContainer.parentNode.removeChild(commentContainer);
+        // Retrieve the username and edited content from the comment container
+        let usernameElement = commentContainer.querySelector('.game-profile-commenter-name');
+        let username = usernameElement.textContent.trim();
+    
+        let editedContentElement = commentContainer.querySelector('.game-profile-comment-text');
+        let editedContent = editedContentElement.textContent.trim();
     
         // Here you would send the delete request to your server
-        // This is just a placeholder and will need to be replaced with your actual delete logic
-        alert('Comment deleted!');
-    }
+        fetch('/delete-comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                editedContent: editedContent
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                // If the delete request is successful, remove the comment container from the DOM
+                commentContainer.parentNode.removeChild(commentContainer);
+                alert('Comment deleted!');
+            } else {
+                throw new Error('Failed to delete comment');
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting comment:', error);
+            // Handle the error, show an error message, or redirect to an error page
+            alert('Failed to delete comment. Please try again.');
+        });
+    }    
 
     document.addEventListener("DOMContentLoaded", function() {
         let star = document.querySelectorAll('input');
@@ -143,6 +201,40 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+    function toggleReplyBox(button) {
+        const commentBox = button.closest('.game-profile-comment-box');
+        const replyBox = commentBox.querySelector('.developer-reply-box');
+        
+        if (replyBox) {
+            replyBox.style.display = replyBox.style.display === 'none' ? 'block' : 'none';
+        } else {
+            const newReplyBox = document.createElement('div');
+            newReplyBox.classList.add('developer-reply-box');
+            newReplyBox.innerHTML = `
+                <textarea class="reply-textarea" placeholder="Write your reply here"></textarea>
+                <button class="submit-reply-button" onclick="submitReply(this)">Submit</button>
+            `;
+            commentBox.appendChild(newReplyBox);
+        }
+    }
+    
+    function submitReply(button) {
+        const replyTextarea = button.previousElementSibling;
+        const replyContent = replyTextarea.value.trim();
+        if (replyContent !== '') {
+            // Assuming the reply was successfully submitted, update the UI as needed
+            const commentBox = button.closest('.game-profile-comment-box');
+            const replyMessage = document.createElement('div');
+            replyMessage.textContent = `From the developer: ${replyContent}`;
+            replyMessage.classList.add('game-profile-comment-text'); // Add CSS class
+            commentBox.appendChild(replyMessage);
+            
+            // Clear the reply textarea
+            replyTextarea.value = '';
+        }
+        // Prevent the default form submission behavior
+        event.preventDefault();
+    }
 
 document.addEventListener('DOMContentLoaded', function() {
     function toggleDropdowns(dropdownId2) {

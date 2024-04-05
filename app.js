@@ -33,7 +33,11 @@ server.engine('hbs', handlebars.engine({
     extname: 'hbs'
 }));
 
+
+
+
 const { MongoClient } = require('mongodb');
+
 const databaseURL = "mongodb://127.0.0.1:27017/";
 const databaseName = "gameboydb";
 const collectionName = "user";
@@ -117,6 +121,8 @@ server.get('/homepage-with-login', function(req, resp){
         title: 'GameBoy!'
     });
 });
+
+
 
 server.get('/gamedeveloper-without-login/:name', function(req, resp){
     const gameDeveloperName = req.params.name;
@@ -339,9 +345,16 @@ server.get('/game-profile-login/:name', function(req, resp) {
     const dbo = mongoClient.db(databaseName);
     const gameCollection = dbo.collection(collectionName1);
     const reviewsCollection = dbo.collection(collectionName2); 
-
+    const user = req.session.user;
+    resp.locals.user = user; 
     let isBase64 = false;
 
+
+    console.log("Checking if user is logged in. Session user:", req.session.user);
+    if (!req.session.user) {
+        return resp.redirect('/login');
+    }
+    
     gameCollection.findOne({ name: gameName }).then(function(game) {
         if (!game) {
             resp.status(404).send('Game not found');
@@ -360,13 +373,21 @@ server.get('/game-profile-login/:name', function(req, resp) {
                 if (isBase64){
                     review.userPic = `data:image/jpeg;base64,${review.userPic}`;
                 }
+                review.isAuthor = user && review.username === user.username;
             });
+            
+            const sameDeveloper = user && game.developer === user.name;
+            
 
             resp.render('game-profile-login', {
                 layout: 'index',
                 title: 'GameBoy!',
                 game: game,
                 reviews: reviews,
+                user:user,
+                isBase64:isBase64,
+                sameDeveloper:sameDeveloper
+
             });
         }).catch(function(error) {
             console.error('Error fetching reviews:', error);
@@ -377,6 +398,53 @@ server.get('/game-profile-login/:name', function(req, resp) {
         resp.status(500).send('Error fetching game data');
     });
 });
+
+server.post('/update-comment', function(req, resp) {
+    const username = req.body.username; 
+    const editedContent = req.body.editedContent;
+    const dbo = mongoClient.db(databaseName);
+    const reviewsCollection = dbo.collection(collectionName2); 
+
+    reviewsCollection.updateOne({ username: username }, { $set: { review: editedContent } })
+        .then(function(result) {
+            if (result.modifiedCount === 1) {
+                resp.status(200).json({ success: true });
+            } else {
+                resp.status(400).json({ success: false, message: 'Review not found or not updated' });
+            }
+        })
+        .catch(function(error) {
+            console.error('Error updating review:', error);
+            resp.status(500).json({ success: false, message: 'Internal server error' });
+        });
+});
+
+server.post('/delete-comment', function(req, res) {
+    const username = req.body.username;
+    const editedContent = req.body.editedContent;
+
+    // Assuming you have a MongoDB setup, you would use your MongoDB client here
+    const dbo = mongoClient.db(databaseName);
+    const reviewsCollection = dbo.collection(collectionName2);
+
+    // Find the comment by username and edited content, then delete it
+    reviewsCollection.deleteOne({ username: username, review: editedContent })
+        .then(function(result) {
+            if (result.deletedCount === 1) {
+                // If the comment is successfully deleted, send a success response
+                res.status(200).json({ success: true });
+            } else {
+                // If the comment is not found or not deleted, send an error response
+                res.status(400).json({ success: false, message: 'Comment not found or not deleted' });
+            }
+        })
+        .catch(function(error) {
+            console.error('Error deleting comment:', error);
+            // If there's an error, send a server error response
+            res.status(500).json({ success: false, message: 'Internal server error' });
+        });
+});
+
 
 server.get('/game-profile/:name', function(req, resp) {
     const gameName = req.params.name;
@@ -477,7 +545,8 @@ server.post('/review-create-review', function(req, resp){
         username: username,
         review: review,
         userPic: profilePicture,
-        stars: rating
+        stars: rating,
+        developerReply: ''
     };
     
     col.insertOne(reviewInstance)
@@ -505,6 +574,12 @@ server.get('/existinguser', function(req, res) {
 
 server.get('/usercreated', function(req, res) {
     res.render('usercreated', {
+        layout: false 
+    });
+});
+
+server.get('/reviewedited', function(req, res) {
+    res.render('reviewedited', {
         layout: false 
     });
 });
@@ -630,7 +705,7 @@ server.get('/viewprofile', function(req, res) {
                     }
                 });
 
-                res.render('gamedeveloper-with-login', {
+                res.render('view-gamedeveloper-profile', {
                     layout: 'index',
                     title: 'GameBoy!',
                     gameDeveloper: gameDeveloper,
