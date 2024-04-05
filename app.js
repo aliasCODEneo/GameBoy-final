@@ -7,36 +7,20 @@
 //npm i express express-handlebars body-parser mongodb
 //npm install bcrypt
 
+
 const express = require('express');
 const server = express();
 const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
 const multer = require('multer');
 const bcrypt = require('bcrypt');
-const databaseName = "gameboydb";
-const collectionName = "user";
-const collectionName1 = "game";
-const collectionName2 = "reviews";
-const collectionName3 = "developer";
-const mongoURI = process.env.MONGODB_URI;
 
 const bodyParser = require('body-parser');
-const store = new MongoDBStore({
-    uri: mongoURI,
-    databaseName: databaseName,
-    collection: collectionName,
-    const: collectionName1,
-    const: collectionName2,
-    const: collectionName3,
-});
-
 server.use(express.json()); 
 server.use(express.urlencoded({ extended: true }));
 server.use(session({
     secret: 'gameboy', // Replace 'your_secret_key' with a secret key for session encryption
     resave: false,
-    saveUninitialized: true,
-    store: store
+    saveUninitialized: true
 }));
 
 
@@ -49,12 +33,21 @@ server.engine('hbs', handlebars.engine({
     extname: 'hbs'
 }));
 
+
+
+
 const { MongoClient } = require('mongodb');
 
+const databaseURL = "mongodb://127.0.0.1:27017/";
+const databaseName = "gameboydb";
+const collectionName = "user";
+const collectionName1 = "game";
+const collectionName2 = "reviews";
+const collectionName3 = "developer";
 
-const mongoClient = new MongoClient(mongoURI);
+const mongoClient = new MongoClient(databaseURL);
 
-mongoClient.connect(mongoURI)
+mongoClient.connect()
     .then(function (con) {
         console.log("Database connected!");
         const dbo = mongoClient.db(databaseName);
