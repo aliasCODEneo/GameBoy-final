@@ -38,14 +38,14 @@ server.engine('hbs', handlebars.engine({
 
 const { MongoClient } = require('mongodb');
 
-const databaseURL = "mongodb://127.0.0.1:27017/";
 const databaseName = "gameboydb";
 const collectionName = "user";
 const collectionName1 = "game";
 const collectionName2 = "reviews";
 const collectionName3 = "developer";
+const mongoURI = process.env.MONGODB_URI;
 
-const mongoClient = new MongoClient(databaseURL);
+const mongoClient = new MongoClient(mongoURI);
 
 mongoClient.connect()
     .then(function (con) {
