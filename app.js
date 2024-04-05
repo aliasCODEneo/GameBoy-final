@@ -47,7 +47,7 @@ const mongoURI = process.env.MONGODB_URI;
 
 const mongoClient = new MongoClient(mongoURI);
 
-mongoClient.connect()
+mongoClient.connect(mongoURI)
     .then(function (con) {
         console.log("Database connected!");
         const dbo = mongoClient.db(databaseName);
