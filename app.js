@@ -13,12 +13,21 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const multer = require('multer');
 const bcrypt = require('bcrypt');
+const databaseName = "gameboydb";
+const collectionName = "user";
+const collectionName1 = "game";
+const collectionName2 = "reviews";
+const collectionName3 = "developer";
+const mongoURI = process.env.MONGODB_URI;
 
 const bodyParser = require('body-parser');
 const store = new MongoDBStore({
     uri: mongoURI,
     databaseName: databaseName,
-    collection: 'gameboydb' 
+    collection: collectionName,
+    const: collectionName1,
+    const: collectionName2,
+    const: collectionName3,
 });
 
 server.use(express.json()); 
@@ -42,12 +51,6 @@ server.engine('hbs', handlebars.engine({
 
 const { MongoClient } = require('mongodb');
 
-const databaseName = "gameboydb";
-const collectionName = "user";
-const collectionName1 = "game";
-const collectionName2 = "reviews";
-const collectionName3 = "developer";
-const mongoURI = process.env.MONGODB_URI;
 
 const mongoClient = new MongoClient(mongoURI);
 
